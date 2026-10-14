@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudentSphere - Student Portfolio & Portal</title>
+  <meta name="description" content="A modern, professional student portfolio web application featuring student profiles, semester marks, attendance statistics, weekly timetable, and authentication interface." />
+  <meta property="og:title" content="StudentSphere - Student Portfolio & Portal" />
+  <meta property="og:description" content="A modern, professional student portfolio web application featuring student profiles, semester marks, attendance statistics, weekly timetable, and authentication interface." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts: Plus Jakarta Sans for Display & UI, JetBrains Mono for Tabular Data -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. Authentication Interface (Interactive Login & Sign Up)
+       ========================================================================= -->
+  <div id="auth-view">
+    <div class="auth-container">
+      
+      <!-- Left Visual & Branding Sidebar -->
+      <div class="auth-sidebar-banner">
+        <div class="brand-badge">
+          <div class="brand-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="brand-text">
+            <h1>StudentSphere</h1>
+            <span>Academic Portal & Portfolio</span>
+          </div>
+        </div>
+
+        <div class="auth-banner-quote">
+          <h2>Your Academic Journey, Unified.</h2>
+          <p>Access your real-time academic standing, verified semester transcripts, attendance metrics, and weekly schedule in one seamless portal.</p>
+          
+          <div class="auth-features-list">
+            <div class="auth-feature-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Official semester marks & SGPA records</span>
+            </div>
+            <div class="auth-feature-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Interactive visual subject performance charts</span>
+            </div>
+            <div class="auth-feature-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Live subject-wise attendance tracking</span>
+            </div>
+            <div class="auth-feature-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Persistent student profiles saved locally</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="auth-banner-footer">
+          <p>&copy; 2026 StudentSphere. Metropolitan Institute of Technology.</p>
+        </div>
+      </div>
+
+      <!-- Right Form Area -->
+      <div class="auth-form-wrapper">
+        <div class="auth-tabs">
+          <button id="tab-login-btn" class="auth-tab-btn active" type="button">Sign In</button>
+          <button id="tab-signup-btn" class="auth-tab-btn" type="button">Create Account</button>
+        </div>
+
+        <!-- Login Form Screen -->
+        <div id="login-form-container">
+          <div class="form-header">
+            <h3>Student Portal Sign In</h3>
+            <p>Enter your registered institutional email and password to access your dashboard.</p>
+          </div>
+
+          <!-- Inline Alert Message Container -->
+          <div id="login-alert" class="form-alert">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <div class="form-alert-content" id="login-alert-msg"></div>
+          </div>
+
+          <form id="login-form" class="auth-form" novalidate>
+            <div class="input-group">
+              <label for="login-email">Institutional Email</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="login-email" placeholder="e.g. elena.vance@mit.edu" autocomplete="email" required />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="login-password">Password</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="login-password" class="has-toggle" placeholder="••••••••••••" autocomplete="current-password" required />
+                <button type="button" id="toggle-login-password" class="password-toggle-btn" title="Toggle password visibility">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-options">
+              <label class="checkbox-label">
+                <input type="checkbox" id="login-remember" checked />
+                <span>Keep me signed in</span>
+              </label>
+              <span class="link-btn" id="btn-forgot-password">Forgot password?</span>
+            </div>
+
+            <button type="submit" class="btn-primary" id="btn-submit-login">
+              <span>Sign In to StudentSphere</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </form>
+
+          <!-- Clearly Labelled Demo Account Box -->
+          <div class="demo-login-box">
+            <div class="demo-login-info">
+              <strong><i class="fa-solid fa-flask" style="color: var(--primary-600); margin-right: 4px;"></i> Demo Account for Testing</strong>
+              <div>Email: <span class="demo-cred-tags">elena.vance@mit.edu</span></div>
+              <div>Password: <span class="demo-cred-tags">Student@2026</span></div>
+            </div>
+            <button id="btn-demo-login" type="button" class="btn-demo" title="Fill demo credentials and sign in immediately">
+              <i class="fa-solid fa-bolt"></i> Auto Fill & Sign In
+            </button>
+          </div>
+        </div>
+
+        <!-- Sign Up Form Screen -->
+        <div id="signup-form-container" style="display: none;">
+          <div class="form-header">
+            <h3>Register Student Account</h3>
+            <p>Create your new student profile. All registered accounts are preserved locally.</p>
+          </div>
+
+          <!-- Inline Alert Message Container -->
+          <div id="signup-alert" class="form-alert">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <div class="form-alert-content" id="signup-alert-msg"></div>
+          </div>
+
+          <form id="signup-form" class="auth-form" novalidate>
+            <div class="input-group">
+              <label for="signup-name">Full Name <span style="color: var(--danger-text);">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="signup-name" placeholder="e.g. Marcus Bradley" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="input-group">
+                <label for="signup-student-id">Student ID <span style="color: var(--danger-text);">*</span></label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-id-card"></i>
+                  <input type="text" id="signup-student-id" placeholder="e.g. CS-2025-0812" required />
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="signup-year">Year of Study <span style="color: var(--danger-text);">*</span></label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-calendar"></i>
+                  <select id="signup-year" required>
+                    <option value="1st Year (Freshman)">1st Year (Freshman)</option>
+                    <option value="2nd Year (Sophomore)">2nd Year (Sophomore)</option>
+                    <option value="3rd Year (Junior)" selected>3rd Year (Junior)</option>
+                    <option value="4th Year (Senior)">4th Year (Senior)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="signup-department">Department / School <span style="color: var(--danger-text);">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-building-columns"></i>
+                <select id="signup-department" required>
+                  <option value="School of Computing & Information Science" selected>School of Computing & Information Science</option>
+                  <option value="Department of Electrical & Computer Engineering">Department of Electrical & Computer Engineering</option>
+                  <option value="Department of Data Science & Artificial Intelligence">Department of Data Science & Artificial Intelligence</option>
+                  <option value="Department of Mechanical & Aerospace Systems">Department of Mechanical & Aerospace Systems</option>
+                  <option value="Department of Applied Mathematics & Physics">Department of Applied Mathematics & Physics</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="signup-email">Institutional Email <span style="color: var(--danger-text);">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="signup-email" placeholder="e.g. marcus.bradley@mit.edu" autocomplete="email" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="input-group">
+                <label for="signup-password">Password <span style="color: var(--danger-text);">*</span></label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-lock"></i>
+                  <input type="password" id="signup-password" class="has-toggle" placeholder="At least 6 chars" required />
+                  <button type="button" id="toggle-signup-password" class="password-toggle-btn" title="Toggle password visibility">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="signup-confirm-password">Confirm Password <span style="color: var(--danger-text);">*</span></label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-lock"></i>
+                  <input type="password" id="signup-confirm-password" class="has-toggle" placeholder="Repeat password" required />
+                  <button type="button" id="toggle-signup-confirm-password" class="password-toggle-btn" title="Toggle password visibility">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary" id="btn-submit-signup">
+              <span>Create Account & Enter Portal</span>
+              <i class="fa-solid fa-user-plus"></i>
+            </button>
+
+            <p style="text-align: center; font-size: 0.82rem; color: var(--text-muted); margin-top: 6px;">
+              Already have an account? <span class="link-btn" id="link-switch-to-login">Sign in here</span>
+            </p>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. Main Portal Application (Sidebar + Header + Page Sections)
+       ========================================================================= -->
+  <div id="portal-layout" style="display: none;">
+    
+    <!-- Responsive Sidebar Navigation -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="sidebar-brand-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="sidebar-brand-title">
+            Student<span>Sphere</span>
+          </div>
+        </div>
+        <button id="sidebar-close-btn" class="sidebar-close-btn" title="Close menu">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-category">Academic Portal</div>
+        
+        <a href="#dashboard" class="nav-link active" data-view="dashboard">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="#profile" class="nav-link" data-view="profile">
+          <i class="fa-solid fa-user"></i>
+          <span>My Profile</span>
+        </a>
+
+        <a href="#results" class="nav-link" data-view="results">
+          <i class="fa-solid fa-award"></i>
+          <span>Semester Results</span>
+        </a>
+
+        <a href="#attendance" class="nav-link" data-view="attendance">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Attendance</span>
+        </a>
+
+        <a href="#timetable" class="nav-link" data-view="timetable">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span>Timetable</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-mini-card">
+          <img id="sidebar-user-avatar" src="student_avatar.jpg" alt="Student Avatar" class="user-mini-avatar" onerror="this.style.display='none'; document.getElementById('user-fallback-avatar').style.display='flex';" />
+          <div id="user-fallback-avatar" class="user-mini-avatar-fallback student-initials-display" style="display: none;">EV</div>
+          <div class="user-mini-details">
+            <div class="user-mini-name student-display-name">Elena Vance</div>
+            <div class="user-mini-id student-display-id">CS-2024-0482</div>
+          </div>
+        </div>
+
+        <button class="logout-nav-btn logout-action-btn" title="Sign out of StudentSphere">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      
+      <!-- Top Sticky Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="mobile-menu-toggle" class="mobile-menu-btn" title="Open Navigation">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          
+          <div class="breadcrumbs">
+            <span>StudentSphere</span>
+            <i class="fa-solid fa-chevron-right" style="font-size: 0.65rem; color: var(--text-subtle);"></i>
+            <span id="breadcrumb-current-page" class="current">Student Dashboard</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="semester-badge">
+            <i class="fa-regular fa-calendar-check"></i>
+            <span id="header-semester-display">Fall 2026 · Semester 5</span>
+          </div>
+
+          <div class="header-notifications">
+            <button class="icon-btn" title="Notifications" id="btn-notifications">
+              <i class="fa-regular fa-bell"></i>
+              <span class="notif-badge"></span>
+            </button>
+          </div>
+
+          <div id="header-user-trigger" class="header-user-btn" style="cursor: pointer;" title="View My Profile">
+            <img id="header-user-avatar" src="student_avatar.jpg" alt="User" class="header-user-avatar" onerror="this.style.display='none'; document.getElementById('header-avatar-fallback').style.display='flex';" />
+            <div id="header-avatar-fallback" class="header-user-avatar-fallback student-initials-display" style="display: none;">EV</div>
+            <span class="header-user-name student-display-name">Elena Vance</span>
+            <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; color: var(--text-subtle); margin-left: 2px;"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Page View Container -->
+      <div class="page-container">
+        
+        <!-- ===================================================================
+             VIEW 1: Student Dashboard
+             =================================================================== -->
+        <section id="dashboard-view" class="view-section active">
+          
+          <!-- 1. Hero Welcome Card Showing Student's Name -->
+          <div class="welcome-hero">
+            <div class="welcome-content">
+              <h2>Welcome back, <span class="student-display-name">Elena Vance</span>! 👋</h2>
+              <p id="dashboard-welcome-desc">Here is your live academic overview for Fall 2026. You are maintaining excellent standing in the department.</p>
+              
+              <div class="welcome-meta">
+                <div class="welcome-meta-pill">
+                  <i class="fa-solid fa-building-columns"></i>
+                  <span class="student-display-department">School of Computing & Information Science</span>
+                </div>
+                <div class="welcome-meta-pill">
+                  <i class="fa-solid fa-id-badge"></i>
+                  <span class="student-display-id">CS-2024-0482</span>
+                </div>
+                <div class="welcome-meta-pill">
+                  <i class="fa-solid fa-user-graduate"></i>
+                  <span class="student-display-year">3rd Year (Junior)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="welcome-quick-actions">
+              <button class="btn-white" onclick="navigateTo('results')">
+                <i class="fa-solid fa-chart-line"></i> Semester Results
+              </button>
+              <button class="btn-white" onclick="navigateTo('timetable')">
+                <i class="fa-solid fa-clock"></i> Today's Classes
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Summary Cards: CGPA, Current Attendance, Total Subjects, Completed Semesters -->
+          <div class="stats-grid">
+            
+            <!-- Card 1: CGPA -->
+            <div class="stat-card">
+              <div class="stat-info">
+                <span class="stat-label">Cumulative CGPA</span>
+                <span class="stat-value tabular-nums" id="dashboard-cgpa-display">3.88</span>
+                <span class="stat-subtext">
+                  <i class="fa-solid fa-arrow-trend-up"></i> Top 5% (Distinction)
+                </span>
+              </div>
+              <div class="stat-icon-wrapper stat-icon-blue" title="Cumulative Grade Point Average">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+            </div>
+
+            <!-- Card 2: Current Attendance -->
+            <div class="stat-card">
+              <div class="stat-info">
+                <span class="stat-label">Current Attendance</span>
+                <span class="stat-value tabular-nums" id="dashboard-attendance-display">92.4%</span>
+                <span class="stat-subtext">
+                  <i class="fa-solid fa-shield-halved"></i> Satisfies &ge;75% Rule
+                </span>
+              </div>
+              <div class="stat-icon-wrapper stat-icon-emerald" title="Current Academic Attendance">
+                <i class="fa-solid fa-user-check"></i>
+              </div>
+            </div>
+
+            <!-- Card 3: Total Subjects -->
+            <div class="stat-card">
+              <div class="stat-info">
+                <span class="stat-label">Total Subjects</span>
+                <span class="stat-value tabular-nums" id="dashboard-subjects-display">6 Enrolled</span>
+                <span class="stat-subtext" style="color: var(--primary-700);">
+                  <i class="fa-solid fa-book-bookmark"></i> 18 Active Credit Units
+                </span>
+              </div>
+              <div class="stat-icon-wrapper stat-icon-indigo" title="Registered Subjects This Term">
+                <i class="fa-solid fa-layer-group"></i>
+              </div>
+            </div>
+
+            <!-- Card 4: Completed Semesters -->
+            <div class="stat-card">
+              <div class="stat-info">
+                <span class="stat-label">Completed Semesters</span>
+                <span class="stat-value tabular-nums" id="dashboard-semesters-display">4 Semesters</span>
+                <span class="stat-subtext" style="color: #b45309;">
+                  <i class="fa-solid fa-circle-check"></i> 88 Credits Completed
+                </span>
+              </div>
+              <div class="stat-icon-wrapper stat-icon-amber" title="Completed Semesters History">
+                <i class="fa-solid fa-award"></i>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 3. Student Profile Section (Showing Student ID, Department, Academic Year, and Email) -->
+          <div class="dashboard-profile-strip">
+            <div class="dashboard-profile-details">
+              <img id="dash-profile-thumb" src="student_avatar.jpg" alt="Profile" class="dashboard-profile-avatar-thumb" onerror="this.style.display='none'; document.getElementById('dash-thumb-fallback').style.display='flex';" />
+              <div id="dash-thumb-fallback" class="dashboard-profile-avatar-fallback student-initials-display" style="display: none;">EV</div>
+
+              <div>
+                <div style="font-size: 1.05rem; font-weight: 700; color: var(--text-main);" class="student-display-name">Elena Vance</div>
+                <div style="font-size: 0.8rem; color: var(--primary-600); font-weight: 600;">Verified Student Profile · Active Session</div>
+              </div>
+            </div>
+
+            <div class="dashboard-profile-info-grid">
+              <div class="dashboard-profile-meta-item">
+                <span class="dashboard-profile-meta-label">Student ID</span>
+                <span class="dashboard-profile-meta-value student-display-id tabular-nums">CS-2024-0482</span>
+              </div>
+
+              <div class="dashboard-profile-meta-item">
+                <span class="dashboard-profile-meta-label">Department</span>
+                <span class="dashboard-profile-meta-value student-display-department">School of Computing & Information Science</span>
+              </div>
+
+              <div class="dashboard-profile-meta-item">
+                <span class="dashboard-profile-meta-label">Academic Year</span>
+                <span class="dashboard-profile-meta-value student-display-year">3rd Year (Junior)</span>
+              </div>
+
+              <div class="dashboard-profile-meta-item">
+                <span class="dashboard-profile-meta-label">Institutional Email</span>
+                <span class="dashboard-profile-meta-value student-display-email">elena.vance@mit.edu</span>
+              </div>
+            </div>
+
+            <button class="btn-secondary" style="width: auto; padding: 8px 14px; font-size: 0.8rem;" onclick="navigateTo('profile')">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Full Profile
+            </button>
+          </div>
+
+          <!-- 2-Column Split: Today's Schedule & Announcements -->
+          <div class="dashboard-grid-layout">
+            
+            <!-- Today's Schedule Card -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fa-regular fa-calendar"></i>
+                  <span>Today's Classes (Monday)</span>
+                </h3>
+                <button class="link-btn" onclick="navigateTo('timetable')">Full Timetable →</button>
+              </div>
+
+              <div class="today-classes-list">
+                
+                <div class="class-card">
+                  <div class="class-time-block">
+                    <span class="class-time tabular-nums">09:00 - 10:30 AM</span>
+                    <span class="class-venue"><i class="fa-solid fa-location-dot"></i> Hall 3B</span>
+                  </div>
+                  <div class="class-info">
+                    <h4 class="class-title">CS-301 Design & Analysis of Algorithms</h4>
+                    <p class="class-instructor">Prof. Alan Sterling</p>
+                  </div>
+                  <span class="class-tag tag-lecture">Lecture</span>
+                </div>
+
+                <div class="class-card">
+                  <div class="class-time-block">
+                    <span class="class-time tabular-nums">11:00 - 12:30 PM</span>
+                    <span class="class-venue"><i class="fa-solid fa-location-dot"></i> Turing Lab 2</span>
+                  </div>
+                  <div class="class-info">
+                    <h4 class="class-title">CS-304 Database Systems Internals</h4>
+                    <p class="class-instructor">Dr. Sarah Lin</p>
+                  </div>
+                  <span class="class-tag tag-lab">Lab & Theory</span>
+                </div>
+
+                <div class="class-card">
+                  <div class="class-time-block">
+                    <span class="class-time tabular-nums">02:00 - 03:30 PM</span>
+                    <span class="class-venue"><i class="fa-solid fa-location-dot"></i> Room 104</span>
+                  </div>
+                  <div class="class-info">
+                    <h4 class="class-title">MATH-220 Probability & Applied Statistics</h4>
+                    <p class="class-instructor">Prof. David Klein</p>
+                  </div>
+                  <span class="class-tag tag-lecture">Lecture</span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- University Announcements Card -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fa-solid fa-bullhorn"></i>
+                  <span>Academic Notices</span>
+                </h3>
+                <span style="font-size: 0.78rem; color: var(--text-muted);">Fall 2026</span>
+              </div>
+
+              <div class="announcements-list">
+                <div class="announcement-item">
+                  <div class="announcement-date">Oct 14, 2026 · Examination Cell</div>
+                  <h4 class="announcement-title">Midterm Examination Schedule Released</h4>
+                  <p class="announcement-desc">Midterm evaluations commence on November 04, 2026. Hall tickets available in portal next Monday.</p>
+                </div>
+
+                <div class="announcement-item">
+                  <div class="announcement-date">Oct 11, 2026 · ACM Student Chapter</div>
+                  <h4 class="announcement-title">Annual Collegiate Hackathon 2026</h4>
+                  <p class="announcement-desc">Registrations for the 36-hour AI & Systems Hackathon close on Oct 25. Department teams invited.</p>
+                </div>
+
+                <div class="announcement-item">
+                  <div class="announcement-date">Oct 08, 2026 · Central Library</div>
+                  <h4 class="announcement-title">Book Return Due Reminder</h4>
+                  <p class="announcement-desc">"Distributed Systems: Concepts and Design (5th Ed)" due for renewal by this Friday.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ===================================================================
+             VIEW 2: Student Profile
+             =================================================================== -->
+        <section id="profile-view" class="view-section">
+          
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Student Profile</h2>
+              <p class="section-subtitle">Verified institutional credentials, contact records, and academic status.</p>
+            </div>
+            
+            <button id="btn-download-idcard" class="btn-primary" style="width: auto;">
+              <i class="fa-solid fa-id-card"></i>
+              <span>Digital Student ID Card</span>
+            </button>
+          </div>
+
+          <div class="profile-layout-grid">
+            
+            <!-- Left Profile Card -->
+            <div class="card profile-summary-card">
+              <div class="profile-avatar-container">
+                <img id="profile-card-avatar" src="student_avatar.jpg" alt="Student Profile" class="profile-avatar-img" onerror="this.style.display='none'; document.getElementById('profile-avatar-fallback').style.display='flex';" />
+                <div id="profile-avatar-fallback" class="profile-avatar-fallback student-initials-display" style="display: none;">EV</div>
+                <span class="profile-status-badge" title="Active Enrollment Status">
+                  <i class="fa-solid fa-check"></i>
+                </span>
+              </div>
+
+              <h3 class="profile-name student-display-name">Elena Vance</h3>
+              <p class="profile-roll student-display-id">CS-2024-0482</p>
+              <p class="profile-department student-display-department">School of Computing & Information Science</p>
+
+              <div class="profile-quick-meta">
+                <div class="profile-meta-stat">
+                  <span>Current CGPA</span>
+                  <strong class="tabular-nums" id="profile-cgpa-display">3.88 / 4.0</strong>
+                </div>
+                <div class="profile-meta-stat">
+                  <span>Year / Standing</span>
+                  <strong class="student-display-year">3rd Year (Junior)</strong>
+                </div>
+              </div>
+
+              <div class="profile-actions">
+                <button class="btn-secondary" onclick="showToast('Institutional enrollment status is verified active.', 'info')">
+                  <i class="fa-solid fa-circle-check" style="color: var(--success-text);"></i>
+                  <span>Status: Active & Enrolled</span>
+                </button>
+                <button class="btn-secondary" onclick="showToast('Advisor Dr. Marcus Reynolds has been notified of your message.', 'info')">
+                  <i class="fa-solid fa-envelope"></i>
+                  <span>Message Faculty Advisor</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Detailed Information -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fa-solid fa-address-card"></i>
+                  <span>Academic & Personal Information</span>
+                </h3>
+              </div>
+
+              <div class="profile-details-grid">
+                
+                <div class="detail-item">
+                  <span class="detail-label">Full Name</span>
+                  <span class="detail-value student-display-name">Elena Vance</span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">Roll Number / Student ID</span>
+                  <span class="detail-value student-display-id tabular-nums">CS-2024-0482</span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">Department / School</span>
+                  <span class="detail-value student-display-department">School of Computing & Information Science</span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">Year of Study</span>
+                  <span class="detail-value student-display-year">3rd Year (Junior)</span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">Institutional Email</span>
+                  <span class="detail-value student-display-email">elena.vance@mit.edu</span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">Contact Phone</span>
+                  <span class="detail-value tabular-nums student-display-phone">+1 (555) 382-9014</span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">Faculty Advisor</span>
+                  <span class="detail-value student-display-advisor">Dr. Marcus Reynolds (Assoc. Prof.)</span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">Campus Residence</span>
+                  <span class="detail-value student-display-residence">Westgate Hall, Room 302-B</span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">Date of Birth</span>
+                  <span class="detail-value student-display-dob">April 14, 2004</span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">Blood Group</span>
+                  <span class="detail-value student-display-blood">O+ (Positive)</span>
+                </div>
+
+              </div>
+
+              <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-light);">
+                <div class="detail-label">Technical Competencies & Academic Interests</div>
+                <div class="skills-tags-container" id="profile-skills-tags">
+                  <span class="skill-tag">Data Structures & Algorithms</span>
+                  <span class="skill-tag">Full-Stack Web Dev</span>
+                  <span class="skill-tag">Machine Learning</span>
+                  <span class="skill-tag">Cloud Databases & PostgreSQL</span>
+                  <span class="skill-tag">Computer Vision</span>
+                  <span class="skill-tag">Distributed Systems</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ===================================================================
+             VIEW 3: Semester Results, Marks Table & Visual Chart
+             =================================================================== -->
+        <section id="results-view" class="view-section">
+          
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Semester Results & Academic Performance</h2>
+              <p class="section-subtitle">Official semester marksheet, subject comparisons, and cumulative grade point metrics.</p>
+            </div>
+            
+            <button id="btn-download-transcript" class="btn-primary" style="width: auto;">
+              <i class="fa-solid fa-file-pdf"></i>
+              <span>Download Official Grade Sheet</span>
+            </button>
+          </div>
+
+          <!-- 4. Semester Selection Dropdown Controls -->
+          <div class="results-controls">
+            <div class="semester-dropdown-wrapper">
+              <label for="semester-dropdown" class="semester-dropdown-label">
+                <i class="fa-solid fa-filter" style="color: var(--primary-600); margin-right: 6px;"></i>
+                Select Academic Semester:
+              </label>
+              <select id="semester-dropdown" class="semester-select">
+                <option value="sem4" selected>Semester 4 (Spring 2026)</option>
+                <option value="sem3">Semester 3 (Fall 2025)</option>
+                <option value="sem2">Semester 2 (Spring 2025)</option>
+                <option value="sem1">Semester 1 (Fall 2024)</option>
+              </select>
+            </div>
+
+            <div style="font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-circle-info" style="color: var(--primary-500);"></i>
+              <span>Grading Scheme: <strong>10.0 Absolute Scale</strong></span>
+            </div>
+          </div>
+
+          <!-- 6. Semester GPA & Overall CGPA Summary Metrics Row -->
+          <div class="semester-metrics-row">
+            
+            <div class="sem-metric-box highlight">
+              <div class="sem-metric-label">Semester GPA (SGPA)</div>
+              <div id="sem-metric-sgpa" class="sem-metric-value tabular-nums">3.92</div>
+            </div>
+
+            <div class="sem-metric-box highlight">
+              <div class="sem-metric-label">Overall CGPA Summary</div>
+              <div id="sem-metric-cgpa-summary" class="sem-metric-value tabular-nums">3.88</div>
+            </div>
+
+            <div class="sem-metric-box">
+              <div class="sem-metric-label">Credits Earned</div>
+              <div id="sem-metric-credits" class="sem-metric-value tabular-nums">22 Credits</div>
+            </div>
+
+            <div class="sem-metric-box">
+              <div class="sem-metric-label">Semester Marks</div>
+              <div id="sem-metric-marks" class="sem-metric-value tabular-nums" style="font-size: 1.25rem;">554 / 600</div>
+            </div>
+
+            <div class="sem-metric-box">
+              <div class="sem-metric-label">Academic Standing</div>
+              <div id="sem-metric-status" class="sem-metric-value" style="font-size: 1.05rem; color: var(--success-text);">Distinction (Passed)</div>
+            </div>
+
+          </div>
+
+          <!-- 7. Visual Chart Comparing Subject Marks (Pure CSS / Vanilla JS) -->
+          <div class="card chart-container-card">
+            <div class="chart-header-bar">
+              <h3 class="card-title">
+                <i class="fa-solid fa-chart-column"></i>
+                <span id="chart-section-title">Subject Marks Comparison (Semester 4)</span>
+              </h3>
+
+              <div class="chart-legend">
+                <div class="chart-legend-item">
+                  <span class="chart-legend-dot dot-total"></span>
+                  <span>Total Subject Score (out of 100)</span>
+                </div>
+                <div class="chart-legend-item">
+                  <span class="chart-legend-dot dot-average"></span>
+                  <span>Term Average Benchmark</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Bar Chart Display Canvas -->
+            <div class="chart-display-area" id="chart-display-container">
+              <!-- Y-Axis Labels -->
+              <div class="chart-y-axis">
+                <span>100</span>
+                <span>75</span>
+                <span>50</span>
+                <span>25</span>
+                <span>0</span>
+              </div>
+
+              <!-- Guideline horizontal markers -->
+              <div class="chart-grid-guideline" style="top: 24px;"></div>
+              <div class="chart-grid-guideline" style="top: 86px;"></div>
+              <div class="chart-grid-guideline" style="top: 148px;"></div>
+              <div class="chart-grid-guideline" style="top: 210px;"></div>
+
+              <!-- Term Average Benchmark Guideline -->
+              <div id="chart-average-guideline" class="chart-average-line" style="bottom: 92%;">
+                <span id="chart-average-badge-text" class="chart-average-badge">Avg: 92.3%</span>
+              </div>
+
+              <!-- Columns Container (Populated dynamically) -->
+              <div class="chart-columns-flex" id="chart-bars-wrapper">
+                <!-- Dynamically generated via script.js -->
+              </div>
+            </div>
+
+            <div style="font-size: 0.74rem; color: var(--text-muted); text-align: right; margin-top: 12px;">
+              Hover over each column to inspect Internal (30) and External (70) component breakdown.
+            </div>
+          </div>
+
+          <!-- 5. Subject-wise Marks Table -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fa-solid fa-table-list"></i>
+                <span id="table-section-title">Subject-wise Marks & Evaluation Records</span>
+              </h3>
+              <span id="sem-courses-count" style="font-size: 0.82rem; font-weight: 700; color: var(--primary-700);">
+                6 Evaluated Subjects
+              </span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Subject Name</th>
+                    <th>Subject Code</th>
+                    <th class="text-center">Internal Marks (30)</th>
+                    <th class="text-center">External Marks (70)</th>
+                    <th class="text-center">Total Marks (100)</th>
+                    <th class="text-center">Grade</th>
+                    <th class="text-center">Result Status</th>
+                  </tr>
+                </thead>
+                <tbody id="semester-marks-tbody">
+                  <!-- Populated dynamically via script.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===================================================================
+             VIEW 4: Attendance Statistics
+             =================================================================== -->
+        <section id="attendance-view" class="view-section">
+          
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Current Attendance Statistics</h2>
+              <p class="section-subtitle">Real-time attendance tracking for Semester 5 with examination eligibility safety metrics.</p>
+            </div>
+            
+            <div class="eligibility-status-banner status-eligible">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Eligible for Semester Examinations (Requirement: &ge; 75%)</span>
+            </div>
+          </div>
+
+          <!-- Overall Attendance Overview -->
+          <div class="attendance-overview-grid">
+            
+            <div class="card attendance-ring-card">
+              <div class="circle-progress-wrapper">
+                <svg class="circle-progress-svg" viewBox="0 0 160 160">
+                  <circle class="circle-progress-bg" cx="80" cy="80" r="70"></circle>
+                  <circle class="circle-progress-bar" id="attendance-circle-fill" cx="80" cy="80" r="70"></circle>
+                </svg>
+                <div class="circle-progress-text">
+                  <span class="circle-progress-pct tabular-nums" id="attendance-pct-display">92.4%</span>
+                  <span class="circle-progress-label">Aggregate</span>
+                </div>
+              </div>
+
+              <div style="font-size: 0.88rem; font-weight: 700; color: var(--text-main);">
+                Excellent Attendance Standing
+              </div>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;" id="attendance-summary-subtext">
+                You have attended 159 out of 172 total sessions conducted this semester.
+              </p>
+            </div>
+
+            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fa-solid fa-chart-simple"></i>
+                  <span>Attendance Summary Metrics</span>
+                </h3>
+              </div>
+
+              <div class="stats-grid" style="margin-bottom: 0;">
+                <div class="stat-card">
+                  <div class="stat-info">
+                    <span class="stat-label">Conducted</span>
+                    <span class="stat-value tabular-nums">172</span>
+                    <span class="stat-subtext" style="color: var(--text-muted);">Total sessions</span>
+                  </div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-info">
+                    <span class="stat-label">Attended</span>
+                    <span class="stat-value tabular-nums" style="color: var(--success-text);">159</span>
+                    <span class="stat-subtext">Present</span>
+                  </div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-info">
+                    <span class="stat-label">Missed</span>
+                    <span class="stat-value tabular-nums" style="color: var(--danger-text);">13</span>
+                    <span class="stat-subtext" style="color: var(--danger-text);">Absences</span>
+                  </div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-info">
+                    <span class="stat-label">Safe Margin</span>
+                    <span class="stat-value tabular-nums" style="color: var(--primary-700);">+28</span>
+                    <span class="stat-subtext">Safe classes margin</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="padding: 12px 16px; background: var(--primary-50); border-radius: var(--radius-md); font-size: 0.8rem; color: var(--primary-900); display: flex; align-items: center; gap: 10px; margin-top: 16px;">
+                <i class="fa-solid fa-circle-info" style="color: var(--primary-600);"></i>
+                <span>Official Policy: Students maintaining &ge; 75% attendance are automatically cleared for final examinations.</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Course-wise Attendance Table -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fa-solid fa-list-check"></i>
+                <span>Course-wise Attendance Breakdown</span>
+              </h3>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Course & Faculty</th>
+                    <th class="text-center">Conducted</th>
+                    <th class="text-center">Attended</th>
+                    <th class="text-center">Missed</th>
+                    <th style="width: 25%;">Attendance Rate</th>
+                    <th>Eligibility Margin</th>
+                  </tr>
+                </thead>
+                <tbody id="attendance-tbody">
+                  <!-- Populated dynamically via script.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===================================================================
+             VIEW 5: Weekly Class Timetable
+             =================================================================== -->
+        <section id="timetable-view" class="view-section">
+          
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Weekly Class Timetable</h2>
+              <p class="section-subtitle">Academic lecture, practical laboratory, and tutorial schedule for Semester 5.</p>
+            </div>
+            
+            <button class="btn-secondary" style="width: auto;" id="btn-print-timetable">
+              <i class="fa-solid fa-print"></i>
+              <span>Print Schedule</span>
+            </button>
+          </div>
+
+          <!-- Timetable Day Selector -->
+          <div class="timetable-toolbar">
+            <div class="days-tab-nav">
+              <button class="day-tab-btn active" data-day="monday">Monday</button>
+              <button class="day-tab-btn" data-day="tuesday">Tuesday</button>
+              <button class="day-tab-btn" data-day="wednesday">Wednesday</button>
+              <button class="day-tab-btn" data-day="thursday">Thursday</button>
+              <button class="day-tab-btn" data-day="friday">Friday</button>
+            </div>
+
+            <div style="font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-building"></i>
+              <span>Metropolitan Academic Campus · Standard Time (EST)</span>
+            </div>
+          </div>
+
+          <!-- Timetable Cards Container -->
+          <div id="timetable-cards-container" class="timetable-grid-cards">
+            <!-- Populated dynamically via script.js -->
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- =========================================================================
+       3. Digital Student ID Card Preview Modal
+       ========================================================================= -->
+  <div id="idcard-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-id-card" style="color: var(--primary-600);"></i>
+          <span>Official Student Identification</span>
+        </div>
+        <button id="modal-close-idcard" class="modal-close-btn" title="Close preview">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="id-card-preview">
+        <div class="id-card-visual">
+          <div class="id-card-top">
+            <div>
+              <div style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.8;">Metropolitan Institute of Technology</div>
+              <div style="font-size: 1rem; font-weight: 700;">StudentSphere Identity</div>
+            </div>
+            <i class="fa-solid fa-graduation-cap" style="font-size: 1.5rem; opacity: 0.9;"></i>
+          </div>
+
+          <div class="id-card-body">
+            <img id="modal-card-photo" src="student_avatar.jpg" alt="Photo" class="id-card-photo" onerror="this.style.display='none'; document.getElementById('modal-photo-fallback').style.display='flex';" />
+            <div id="modal-photo-fallback" class="id-card-photo-fallback student-initials-display" style="display: none;">EV</div>
+
+            <div class="id-card-meta">
+              <h4 class="student-display-name">Elena Vance</h4>
+              <p style="color: #93c5fd; font-weight: 600;" class="student-display-id tabular-nums">CS-2024-0482</p>
+              <p class="student-display-department" style="margin-top: 4px; font-size: 0.76rem;">School of Computing & Information Science</p>
+              <p class="student-display-year" style="font-size: 0.72rem; opacity: 0.85;">3rd Year (Junior)</p>
+            </div>
+          </div>
+
+          <div class="id-card-barcode">
+            <div>VALID THRU: <strong>JUNE 2027</strong></div>
+            <div style="font-family: var(--font-mono); letter-spacing: 0.1em;">||| | ||||| || ||| ||||</div>
+            <div>STATUS: <strong>ACTIVE</strong></div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
+          <button class="btn-primary" style="flex: 1;" onclick="window.print()">
+            <i class="fa-solid fa-print"></i>
+            <span>Print ID Card</span>
+          </button>
+          <button class="btn-secondary" style="width: auto; padding: 10px 16px;" onclick="closeIdCardModal()">
+            <span>Close</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-notification">Notification Message</div>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>

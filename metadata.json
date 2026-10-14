@@ -1,0 +1,7 @@
+{
+  "name": "StudentSphere - Student Portfolio & Portal",
+  "description": "A modern, professional student portfolio web application featuring student profiles, semester marks, attendance statistics, weekly timetable, and authentication interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
